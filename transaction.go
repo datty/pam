@@ -115,11 +115,11 @@ func StartConfDir(service, user string, handler ConversationHandler, confDir str
 }
 
 func StartFuncConfDir(service, user string, handler func(Style, string) (string, error), confDir string) (*Transaction, error) {
-        if !CheckPamHasStartConfdir() {
-                return nil, errors.New("StartConfDir() was used, but the pam version on the system is not recent enough")
-        }
-        
-        return start(service, user, ConversationFunc(handler), confDir)
+	if !CheckPamHasStartConfdir() {
+		return nil, errors.New("StartConfDir() was used, but the pam version on the system is not recent enough")
+	}
+	x := ConversationFunc(handler)
+	return start(service, user, x, confDir)
 }
 
 func start(service, user string, handler ConversationHandler, confDir string) (*Transaction, error) {
